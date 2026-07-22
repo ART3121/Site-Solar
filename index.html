@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solar is a native workflow orchestration layer for open hardware projects." />
+  <meta name="theme-color" content="#080808" />
+  <meta property="og:title" content="Solar — Native workflow orchestration for open hardware" />
+  <meta property="og:description" content="An explicit project model, native C17 Core, typed backends and traceable build results for open hardware projects." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&amp;display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080808'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='%23f4f4f1' font-size='24'%3E%E2%9C%B3%3C/text%3E%3C/svg%3E" />
+  <title>Solar — Native workflow orchestration for open hardware</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .site-header{position:fixed;inset:0 0 auto;opacity:0;transform:translateY(-100%);pointer-events:none;transition:opacity .35s ease,transform .35s ease}.has-scrolled .site-header{opacity:1;transform:none;pointer-events:auto}.hero{min-height:100vh;text-align:center;place-items:center}.hero-content{max-width:none;margin:0}.hero h1{font-family:'Syncopate',sans-serif;font-weight:700;font-size:clamp(62px,16vw,230px);line-height:.78;letter-spacing:-.1em}.hero-status,.hero-content .eyebrow,.hero-copy,.hero-content .cta-row,.hero-note{display:none}.site-header .brand span{font-size:34px;vertical-align:-5px}.site-footer .brand span{font-size:30px;vertical-align:-4px}.intro .copy h2{font-size:clamp(38px,5.3vw,74px)}.language-toggle{border:1px solid var(--line);background:transparent;color:var(--fg);font:10px var(--mono);letter-spacing:.07em;padding:9px 11px;cursor:pointer}.language-toggle:hover{background:var(--fg);color:var(--bg)}.future{overflow:hidden;background:var(--soft)}.future-orbit{position:absolute;width:min(62vw,820px);aspect-ratio:1;border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:50%;right:-22vw;top:9%;pointer-events:none}.future-orbit:after{content:'';position:absolute;inset:16%;border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:50%;transform:rotate(53deg)}.future-intro{max-width:800px;margin:0 0 90px}.future-intro h2{font-size:clamp(42px,5.8vw,80px);line-height:.93;letter-spacing:-.08em;font-weight:500;margin:0 0 28px}.future-intro h2 em{font-style:normal;color:var(--muted)}.future-intro p,.future-closing{position:relative;max-width:760px;color:#c2c2bd;font-size:clamp(18px,1.55vw,22px);line-height:1.72}.future-groups{position:relative;border-top:1px solid var(--line)}.future-group{padding:42px 0 0}.future-group+ .future-group{margin-top:66px}.future-group-title{display:flex;gap:16px;align-items:baseline;margin-bottom:26px;color:var(--muted);font-size:11px;letter-spacing:.12em}.future-group-title b{color:var(--fg);font-size:15px;font-weight:500}.future-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(42px,8vw,126px)}.future-item{padding:34px 0 42px;border-top:1px solid var(--line);min-width:0}.future-item h3{max-width:530px;margin:20px 0 18px;font-size:clamp(24px,2.6vw,38px);line-height:1.05;letter-spacing:-.06em;font-weight:500}.future-item p{max-width:560px;margin:0;color:var(--muted);font-size:clamp(16px,1.22vw,18px);line-height:1.72}.future-item ul{margin:24px 0 0;padding:0;list-style:none;border-top:1px dotted var(--line)}.future-item li{padding:11px 0;border-bottom:1px dotted var(--line);color:#c2c2bd;font-size:13px;line-height:1.52}.future-item li:before{content:'—';margin-right:8px;color:var(--muted)}.future-status{display:inline-block;border:1px solid var(--line);padding:6px 8px;color:var(--muted);font-size:10px;letter-spacing:.1em}.future-status[data-status='under-evaluation']{border-style:dotted}.future-note{margin-top:20px!important;padding-left:14px;border-left:1px solid var(--fg);color:var(--fg)!important;font-size:14px!important}.future-closing{margin-top:78px;padding-top:24px;border-top:1px solid var(--line);font-size:17px;color:var(--fg)}.future-link{position:relative}@media(max-width:780px){.site-nav{gap:14px}.site-nav a:nth-child(3){display:none}.future-intro{margin-bottom:58px}.future-items{grid-template-columns:1fr}.future-group+ .future-group{margin-top:35px}.future-orbit{width:110vw;right:-60vw;top:4%}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Solar home"><span aria-hidden="true">✳</span> SOLAR</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="#quick-start">Quick start</a>
+    </nav>
+    <div class="header-actions"><button class="language-toggle" type="button" aria-label="Mudar idioma para português">PT</button><button class="theme-toggle" type="button" aria-label="Switch to light mode">LIGHT</button><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">MENU</button></div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="#quick-start">Quick start</a></nav>
+
+  <main id="main">
+    <section class="hero section">
+      <canvas class="ascii-orbit" aria-hidden="true"></canvas>
+      <div class="hero-content"><h1>SOLAR</h1></div>
+    </section>
+
+    <section class="section intro" id="contract"><div class="section-label">01 / START WITH THE WORKFLOW</div><div class="split"><div class="copy reveal"><p class="eyebrow">SOLAR 0.3 DEVELOPMENT PREVIEW / LINUX / MIT</p><h2>Native workflow<br /><em>orchestration for open hardware.</em></h2><p>Solar brings project configuration, RTL validation, simulation, synthesis and generated artifacts into one explicit workflow. It coordinates established tools through a small native Core, a predictable project model and traceable build results.</p><p>It is not a simulator, synthesizer, IDE or waveform viewer. It makes established tools work together while keeping project behavior inspectable.</p><div class="cta-row"><a class="button button-primary" data-link="get-started">Get started <span>↓</span></a><a class="button" data-link="source">View source <span>↗</span></a><a class="button" data-link="docs">Documentation <span>↗</span></a></div><p>HDL projects often distribute their intent across local commands, tool arguments, scripts, folders and conventions. Solar treats <code>solar.toml</code> as a project contract: the place to declare the language, backends, profiles, tests and explicit source overrides that Solar needs to run the workflow.</p><p>It also discovers conventional Verilog and SystemVerilog sources below <code>rtl/</code> and <code>tb/</code> deterministically. That keeps the authored tree readable without forcing every source file into a hand-maintained list.</p></div><pre class="code-panel reveal" aria-label="Format 2 Solar project manifest"><code>[solar]
+format = 2
+
+[project]
+name = "counter"
+language = "verilog"
+default_test = "basic"
+
+[simulation]
+backend = "iverilog"
+
+[synthesis]
+backend = "yosys"
+top = "counter"</code></pre></div></section>
+
+    <section class="section workflow" id="workflow"><div class="section-label">02 / THE WORKFLOW</div><div class="split reverse"><div class="copy reveal"><h2>One command.<br /><em>Every stage.</em></h2><p><code>solar build full --profile debug</code> loads and validates the project, elaborates RTL, runs declared simulations in manifest order, and synthesizes only if those simulations pass. The command shares one build context, so a generated SAPHO result can be reused rather than rebuilt for each stage.</p><p>Private workspaces, logs and state stay under <code>.solar/</code>. Validated waveforms are published in <code>sim/</code>; Verilog netlists and reports are published in <code>synth/</code>. The source tree remains the source tree.</p></div><div class="flow-diagram reveal" aria-label="Solar build full flow"><span>LOAD</span><i></i><span>CHECK</span><i></i><span>RTL</span><i></i><span>SIM</span><i></i><span>SYNTH</span><i></i><span>REPORT</span></div></div><div class="tree-panel reveal" aria-label="Verilog project layout"><code>counter/
+├── solar.toml      project contract
+├── rtl/            authored RTL
+├── tb/             authored testbenches
+├── sim/            published VCD/FST artifacts
+├── synth/          published netlist and report
+└── .solar/         private workspace, logs and state</code></div></section>
+
+    <section class="section terminal-section"><div class="section-label">03 / OBSERVED CLI OUTPUT</div><div class="split"><div class="copy reveal"><h2>Build results,<br /><em>not guesswork.</em></h2><p>This is an excerpt captured from Solar 0.3.0 built in Debug and run against the repository's <code>examples/counter</code> project. It shows actual CLI grammar and output; external-tool versions, paths and timings are intentionally not presented as universal performance claims.</p><p><code>solar check</code> validates without executing a build. <code>solar build sim --list</code> lists configured simulations without executing a backend. <code>solar build full --dry-run</code> validates and plans the complete pipeline without executing external tools.</p></div><pre class="terminal reveal"><code>$ solar check
+Project counter is valid (1 RTL source, 2 tests).
+
+$ solar build sim --list
+Simulations:
+  basic        top: counter_tb [default]
+  overflow     top: counter_overflow_tb
+
+$ solar build full --dry-run
+DRY RUN
+Solar build: build full
+PASS  check
+PASS  rtl
+PASS  sim
+PASS  synth</code></pre></div></section>
+
+    <section class="section tools" id="tools"><div class="section-label">04 / INTEGRATED TOOLS</div><div class="tool-list reveal"><div><b>Icarus Verilog + VVP</b><span>Compile-only RTL elaboration and standard Verilog simulation; named tests use isolated working directories and logs.</span></div><div><b>Verilator + cocotb 2.x</b><span>Optional lint-only RTL elaboration and simulation backend; supports conventional testbenches and Python-driven cocotb tests.</span></div><div><b>Yosys</b><span>Receives a deterministic script built from authored RTL only; Solar verifies the netlist and report before publication.</span></div><div><b>GTKWave</b><span>An optional external viewer. <code>solar view</code> opens a registered waveform and never triggers a build.</span></div><div><b>YANC</b><span>The bundled compiler backend used by Solar for SAPHO CMM, C++ and Assembly project flows.</span></div></div><p class="tools-note">Solar builds structured argument vectors through typed backends; it does not turn project configuration into arbitrary shell command strings.</p></section>
+
+    <section class="section sapho" id="sapho"><div class="partnership"><span>SOLAR</span><b>×</b><a data-link="nipscern">NIPSCERN</a><small>SAPHO DEVELOPMENT</small></div><div class="section-label">05 / SAPHO INTEGRATION</div><div class="split reverse"><div class="copy reveal"><h2>Software source<br /><em>to SAPHO hardware.</em></h2><p>SAPHO is a first-class Solar build flow. CMM, C++ and Assembly projects use the bundled YANC 5.2 toolchain through Solar's Compiler Service. Solar validates the compiler output, normalizes it into role-based artifacts, then passes exactly those artifacts to the simulation and synthesis services.</p><p>Generated processor RTL, support HDL, MIF files, testbench and runtime sidecars are handled as structured outputs. Simulation gets the generated processor and required runtime files; synthesis gets generated hardware without testbench leakage. Public results are published in <code>hardware/</code> and <code>simulation/</code>.</p><a class="inline-link" data-link="sapho">Explore the SAPHO project ↗</a></div><div class="sapho-flow reveal" aria-label="SAPHO compilation flow"><span>CMM<br />C++<br />ASM</span><i></i><span>YANC<br />toolchain</span><i></i><strong>SAPHO</strong><i></i><span>RTL<br />MIF<br />support</span><i></i><span>SIM<br />SYNTH<br />REPORT</span></div></div></section>
+
+    <section class="section evidence"><div class="section-label">06 / REPORTS AND EVIDENCE</div><div class="split"><div class="copy reveal"><h2>Evidence survives<br /><em>the terminal.</em></h2><p><code>solar report</code> reads the persisted <code>.solar/state/last-report.txt</code> snapshot. It does not rerun a build. Depending on the executed flow, the report records the project configuration, selected profile, host operating system, CPU and memory snapshot, observed tool versions, pipeline stages, per-process timings, artifacts, logs and a bounded stderr tail on failure.</p><p>The report's timings are wall-clock measurements for diagnosis, not a benchmark. Solar makes that scope explicit in the report itself.</p></div><pre class="report-sample reveal"><code>SOLAR LAST BUILD REPORT
+
+Status               PASS
+Command              solar build full
+Solar version        0.3.0
+Profile              debug
+
+Pipeline stages
+PASS  check
+PASS  rtl
+PASS  sim
+PASS  synth
+
+Report file: .solar/state/last-report.txt</code></pre></div></section>
+
+    <section class="section architecture"><div class="section-label">07 / CORE-FIRST ARCHITECTURE</div><div class="architecture-map reveal"><div><b>CLI</b><span>argument parsing, terminal output, exit codes</span></div><i>↓</i><div><b>Solar Core</b><span>project loading · configuration · discovery · build context · diagnostics</span></div><i>↓</i><div><b>Typed services</b><span>RTL · test · compiler · synthesis · waveform · artifacts · report</span></div><i>↓</i><div><b>Backends</b><span>Icarus · Verilator · Yosys · YANC</span></div></div><p class="architecture-note">The current CLI is an interface over the Core API. This boundary allows a future frontend to reuse workflow behavior without reimplementing project parsing or backend execution; it does not claim that a GUI exists today.</p></section>
+
+    <section class="section use-cases"><div class="section-label">08 / WHERE IT FITS</div><div class="use-case-list reveal"><div><b>Education</b><span>Use named tests, explicit manifests and visible artifacts to make HDL and processor workflows inspectable in a lab or classroom.</span></div><div><b>Research</b><span>Preserve logs, build reports, tool versions and generated outputs alongside a reproducible project contract.</span></div><div><b>Open hardware projects</b><span>Keep existing Verilog tools while reducing local script drift and separating authored sources from generated work.</span></div><div><b>SAPHO development</b><span>Compile CMM, C++ or Assembly through the bundled YANC flow and carry validated generated hardware into simulation and synthesis.</span></div></div></section>
+
+    <section class="section status" id="status"><div class="section-label">09 / CURRENT STATUS</div><div class="status-columns"><div class="reveal"><h2>Available today</h2><ul><li>Format-2 Verilog/SystemVerilog projects with deterministic discovery</li><li>Profiles, defines, include directories and named simulations</li><li><code>init</code>, <code>scan</code>, <code>check</code>, <code>doctor</code> and safe <code>clean</code></li><li>RTL, simulation, synthesis and complete builds</li><li>Icarus/VVP, Verilator, cocotb 2.x, Yosys and GTKWave integration</li><li>Bundled YANC CMM, C++ and Assembly flows for SAPHO artifacts</li><li>Registered artifacts, project-local logs and persistent reports</li></ul></div><div class="reveal"><h2>Current limitations</h2><ul><li>Linux/POSIX only</li><li>No FPGA place-and-route, board programming or ASIC implementation</li><li>No VHDL support, HDL editor, language server or graphical Solar frontend</li><li>Sequential simulations; no timeout, parallel build or incremental cache</li><li>Static backend registries; no dynamic plugins or arbitrary backend flags</li><li>One YANC source and processor per project in the current flow</li></ul></div></div></section>
+
+    <section class="section future" id="future"><div class="future-orbit" aria-hidden="true"></div><div class="section-label">10 / FUTURE IMPLEMENTATIONS</div><div class="future-intro" data-future-intro></div><div class="future-groups" data-future-groups></div><div class="future-outro" data-future-outro></div></section>
+
+    <section class="section quick-start" id="quick-start"><div class="section-label">11 / QUICK START</div><div class="split"><div class="copy reveal"><h2>Start.<br /><em>Build. Prove.</em></h2><p>Build Solar with CMake, then create and validate a conventional Verilog project. The commands below are present in the current CLI and templates. Choose a YANC template only when working on a SAPHO project.</p><div class="cta-row"><a class="button button-primary" data-link="docs">Read project documentation <span>↗</span></a><a class="button" data-link="source">Browse source <span>↗</span></a></div></div><pre class="quick-code reveal"><code># Verilog
+solar init --template verilog
+solar check
+solar build sim --list
+solar build full
+solar report
+
+# SAPHO templates
+solar init --template yanc-cmm
+solar init --template yanc-cpp
+solar init --template yanc-asm</code></pre></div></section>
+  </main>
+  <footer class="site-footer"><div><span class="brand"><span aria-hidden="true">✳</span> SOLAR</span><p>Solar 0.3 development preview · MIT licensed · Linux</p></div><nav aria-label="Footer navigation"><a data-link="source">GitHub / source ↗</a><a data-link="docs">Documentation ↗</a><a data-link="sapho">SAPHO ↗</a><a data-link="nipscern">NIPSCERN ↗</a><a data-link="license">MIT license ↗</a></nav></footer>
+  <script src="app.js"></script>
+</body>
+</html>
