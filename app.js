@@ -143,6 +143,7 @@ const COPY = {
     title: 'Solar — Native workflow orchestration for open hardware',
     description: 'Solar is a native workflow orchestration layer for open hardware projects.',
     skip: 'Skip to content',
+    scrollCue: 'SCROLL TO EXPLORE',
     nav: ['Workflow', 'SAPHO', 'Status', 'Future', 'Quick start'],
     sectionLabels: ['01 / START WITH THE WORKFLOW', '02 / THE WORKFLOW', '03 / OBSERVED CLI OUTPUT', '04 / INTEGRATED TOOLS', '05 / SAPHO INTEGRATION', '06 / REPORTS AND EVIDENCE', '07 / CORE-FIRST ARCHITECTURE', '08 / WHERE IT FITS', '09 / CURRENT STATUS', '10 / FUTURE IMPLEMENTATIONS', '11 / QUICK START'],
     intro: {
@@ -239,6 +240,7 @@ const COPY = {
     title: 'Solar — Fluxos claros para hardware aberto',
     description: 'Solar organiza validação, simulação, síntese e artefatos de projetos de hardware aberto em um fluxo nativo e rastreável.',
     skip: 'Ir para o conteúdo',
+    scrollCue: 'ROLE PARA EXPLORAR',
     nav: ['Fluxo', 'SAPHO', 'Status', 'Futuro', 'Início rápido'],
     sectionLabels: ['01 / COMECE PELO FLUXO', '02 / COMO O FLUXO ACONTECE', '03 / CLI EM USO', '04 / FERRAMENTAS QUE SE CONECTAM', '05 / SAPHO NO MESMO FLUXO', '06 / O QUE FICA REGISTRADO', '07 / CORE ANTES DA INTERFACE', '08 / ONDE O SOLAR AJUDA', '09 / O QUE JÁ EXISTE', '10 / IMPLEMENTAÇÕES FUTURAS', '11 / PRIMEIROS PASSOS'],
     intro: {
@@ -390,7 +392,7 @@ function renderFuture(locale) {
       <div class="future-group-title"><span>${group.label}</span><b>${group.title}</b></div>
       <div class="future-items">
         ${group.items.map((item) => `
-          <article class="future-item">
+          <article class="future-item motion-row">
             <span class="future-status" data-status="${item.status.toLowerCase().replaceAll(' ', '-')}">${item.status}</span>
             <h3>${item.title}</h3>
             <p>${item.text}</p>
@@ -411,6 +413,8 @@ function applyLocale(locale) {
   document.querySelector('meta[property="og:title"]').content = copy.title;
   document.querySelector('meta[property="og:description"]').content = copy.description;
   setText('.skip-link', copy.skip);
+  setText('.scroll-cue-label', copy.scrollCue);
+  document.querySelector('.scroll-cue').setAttribute('aria-label', locale === 'pt' ? 'Rolar para a introdução do projeto' : 'Scroll to the project introduction');
   setMany('.site-nav a, .mobile-nav a', [...copy.nav, ...copy.nav]);
   document.querySelector('.site-nav').setAttribute('aria-label', locale === 'pt' ? 'Navegação principal' : 'Primary navigation');
   mobileNav.setAttribute('aria-label', locale === 'pt' ? 'Navegação móvel' : 'Mobile navigation');
@@ -468,6 +472,7 @@ function applyLocale(locale) {
 function setTheme(theme) {
   const copy = COPY[currentLocale];
   document.documentElement.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#080808' : '#f7f7f7';
   themeToggle.textContent = theme === 'dark' ? copy.theme.light : copy.theme.dark;
   themeToggle.setAttribute('aria-label', theme === 'dark' ? copy.theme.toLight : copy.theme.toDark);
   localStorage.setItem('solar-theme', theme);
@@ -502,16 +507,17 @@ function setupAsciiOrbit() {
   const context = canvas.getContext('2d');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const hero = canvas.closest('.hero');
-  const glyphs = ['·', '*', '+', '×', '/', '\\', '<', '>', '[', ']', '='];
+  const glyphs = ['·', '.', ':', '*', '+', '×', '/', '\\', '<', '>', '[', ']', '{', '}', '(', ')', '=', '~', '^', '%', '#', '@', '&', '|', '0', '1', '2', '7', 'A', 'X'];
   const points = [];
   let frame = 0;
   let active = false;
   let visible = true;
   let rotation = 0;
+  let drawCount = 0;
 
-  for (let latitude = -75; latitude <= 75; latitude += 15) {
-    for (let longitude = 0; longitude < 360; longitude += 15) {
-      points.push({ latitude, longitude, glyph: glyphs[(points.length * 7) % glyphs.length] });
+  for (let latitude = -80; latitude <= 80; latitude += 10) {
+    for (let longitude = 0; longitude < 360; longitude += 10) {
+      points.push({ latitude, longitude, glyph: glyphs[Math.floor(Math.random() * glyphs.length)] });
     }
   }
 
@@ -530,15 +536,20 @@ function setupAsciiOrbit() {
     context.clearRect(0, 0, width, height);
     context.textAlign = 'center';
     context.textBaseline = 'middle';
+    drawCount += 1;
     points.forEach((point) => {
+      if (drawCount % 14 === 0 && Math.random() < 0.11) {
+        point.glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+      }
       const longitude = (point.longitude + rotation) * Math.PI / 180;
       const latitude = point.latitude * Math.PI / 180;
       const x = Math.cos(latitude) * Math.sin(longitude);
       const depth = Math.cos(latitude) * Math.cos(longitude);
       if (depth < -0.06) return;
       const scale = (depth + 1) / 2;
-      context.font = `${Math.max(7, 13 * scale)}px monospace`;
-      context.fillStyle = `rgba(230,230,225,${0.12 + scale * 0.58})`;
+      context.font = `${Math.max(6, 14 * scale)}px monospace`;
+      const ink = document.documentElement.dataset.theme === 'light' ? '14,14,18' : '230,230,225';
+      context.fillStyle = `rgba(${ink},${0.12 + scale * 0.58})`;
       context.fillText(point.glyph, width / 2 + x * radius, height / 2 - Math.sin(latitude) * radius);
     });
     rotation += 0.12;
@@ -559,6 +570,94 @@ function setupAsciiOrbit() {
   refresh();
 }
 
+function setupMotion() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.append(progress);
+
+  function updateProgress() {
+    const limit = document.documentElement.scrollHeight - window.innerHeight;
+    const value = limit > 0 ? Math.min(window.scrollY / limit, 1) : 0;
+    document.documentElement.style.setProperty('--scroll-progress', value.toFixed(4));
+  }
+
+  function markSections() {
+    document.querySelectorAll('main > .section').forEach((section) => section.classList.add('motion-section'));
+    if (reduced.matches) {
+      document.querySelectorAll('.motion-section').forEach((section) => section.classList.add('in-view'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.motion-section').forEach((section) => observer.observe(section));
+  }
+
+  function setupPointerOrbit() {
+    const hero = document.querySelector('.hero');
+    if (reduced.matches || !hero) return;
+    hero.addEventListener('pointermove', (event) => {
+      const bounds = hero.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+      hero.style.setProperty('--pointer-x', x.toFixed(3));
+      hero.style.setProperty('--pointer-y', y.toFixed(3));
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--pointer-x', '0');
+      hero.style.setProperty('--pointer-y', '0');
+    });
+  }
+
+  function cycleFlow(selector, delay) {
+    const container = document.querySelector(selector);
+    if (!container || reduced.matches) return;
+    let interval = 0;
+    let index = 0;
+    let visible = false;
+
+    function tick() {
+      const nodes = container.querySelectorAll('span, strong');
+      if (!nodes.length) return;
+      nodes.forEach((node) => node.classList.remove('is-active'));
+      nodes[index % nodes.length].classList.add('is-active');
+      index += 1;
+    }
+
+    function stop() {
+      if (!interval) return;
+      window.clearInterval(interval);
+      interval = 0;
+    }
+
+    function start() {
+      stop();
+      if (!visible || document.hidden) return;
+      tick();
+      interval = window.setInterval(tick, delay);
+    }
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      start();
+    }, { threshold: 0.25 }).observe(container);
+    document.addEventListener('visibilitychange', start);
+  }
+
+  document.body.classList.add('motion-ready');
+  markSections();
+  setupPointerOrbit();
+  cycleFlow('.flow-diagram', 930);
+  cycleFlow('.sapho-flow', 1180);
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+}
+
 applyLinks();
 applyLocale(currentLocale);
 themeToggle.addEventListener('click', () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
@@ -568,7 +667,16 @@ menuToggle.addEventListener('click', () => {
   menuToggle.setAttribute('aria-expanded', String(!mobileNav.hidden));
 });
 mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+document.querySelector('.scroll-cue').addEventListener('click', (event) => {
+  event.preventDefault();
+  const firstSection = document.querySelector('#contract');
+  window.scrollTo({
+    top: firstSection.offsetTop,
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  });
+});
 window.addEventListener('scroll', updateHeader, { passive: true });
 updateHeader();
 setupReveal();
 setupAsciiOrbit();
+setupMotion();
