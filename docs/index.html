@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-manual-language="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Official Solar 0.4.5 installation guide, user manual, command reference and troubleshooting documentation." />
+  <meta name="theme-color" content="#080808" />
+  <meta property="og:title" content="Solar 0.4.5 Manual" />
+  <meta property="og:description" content="Install Solar, configure projects, run simulations and synthesize hardware." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="../assets/solar-logo.svg" />
+  <title>Solar 0.4.5 Manual</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="docs.css" />
+</head>
+<body>
+  <a class="skip-link" href="#manual">Skip to manual</a>
+  <header class="site-header docs-header" id="top">
+    <a class="brand" href="../" aria-label="Solar home"><span aria-hidden="true">✳</span> SOLAR</a>
+    <nav class="site-nav" aria-label="Documentation navigation">
+      <a href="#install">Install</a>
+      <a href="#quick-start">Quick start</a>
+      <a href="#commands">Commands</a>
+      <a href="#project">Project</a>
+      <a href="#troubleshooting">Help</a>
+    </nav>
+    <div class="header-actions">
+      <button class="language-toggle" type="button" aria-label="Mudar manual para português">PT</button>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">LIGHT</button>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">MENU</button>
+    </div>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile documentation navigation" hidden>
+    <a href="#install">Install</a>
+    <a href="#quick-start">Quick start</a>
+    <a href="#commands">Commands</a>
+    <a href="#project">Project</a>
+    <a href="#troubleshooting">Help</a>
+  </nav>
+
+  <main id="manual">
+    <section class="section docs-hero">
+      <div data-manual-lang="en">
+        <span class="eyebrow">SOLAR 0.4.5 / USER MANUAL / LINUX</span>
+        <h1>Build hardware.<br /><em>Know the flow.</em></h1>
+        <p>The official entry point for installing Solar, creating a project, running named simulations, publishing waveforms and synthesizing RTL.</p>
+        <div class="cta-row">
+          <a class="button button-primary" href="#install">Install Solar <span>↓</span></a>
+          <a class="button" href="https://github.com/ART3121/solar/releases/latest">Latest release <span>↗</span></a>
+          <a class="button" href="https://github.com/ART3121/solar">Source <span>↗</span></a>
+        </div>
+      </div>
+      <div data-manual-lang="pt">
+        <span class="eyebrow">SOLAR 0.4.5 / MANUAL DO USUÁRIO / LINUX</span>
+        <h1>Crie hardware.<br /><em>Entenda o fluxo.</em></h1>
+        <p>O ponto de entrada oficial para instalar o Solar, criar projetos, executar simulações nomeadas, publicar formas de onda e sintetizar RTL.</p>
+        <div class="cta-row">
+          <a class="button button-primary" href="#install">Instalar o Solar <span>↓</span></a>
+          <a class="button" href="https://github.com/ART3121/solar/releases/latest">Última versão <span>↗</span></a>
+          <a class="button" href="https://github.com/ART3121/solar">Código-fonte <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="docs-shell">
+      <aside class="docs-sidebar" aria-label="Manual sections">
+        <a href="#overview">00 / Overview</a>
+        <a href="#install">01 / Install</a>
+        <a href="#quick-start">02 / Quick start</a>
+        <a href="#project">03 / solar.toml</a>
+        <a href="#commands">04 / Commands</a>
+        <a href="#waveforms">05 / Waveforms</a>
+        <a href="#artifacts">06 / Artifacts</a>
+        <a href="#troubleshooting">07 / Troubleshooting</a>
+        <a href="#reference">08 / Reference</a>
+      </aside>
+
+      <article>
+        <div data-manual-lang="en">
+          <section class="manual-section" id="overview">
+            <span class="manual-kicker">00 / WHAT SOLAR IS</span>
+            <h2>One project model.<br />Established EDA tools.</h2>
+            <p>Solar is a lightweight open hardware design platform and EDA workflow orchestrator for Linux. It validates one explicit project model, invokes established tools safely and organizes useful artifacts without replacing simulators or synthesizers.</p>
+            <div class="manual-grid">
+              <a class="manual-card" href="#quick-start"><b>Start a project</b><span>Create a conventional Verilog project and run its first complete flow.</span></a>
+              <a class="manual-card" href="#commands"><b>Use the CLI</b><span>See the stable project, build, artifact and diagnostic commands.</span></a>
+              <a class="manual-card" href="#waveforms"><b>Debug a simulation</b><span>Understand named tests, VCD paths and when to run <code>solar scan</code>.</span></a>
+              <a class="manual-card" href="#reference"><b>Read internals</b><span>Open the complete manifest, architecture, backend and testing references.</span></a>
+            </div>
+          </section>
+
+          <section class="manual-section" id="install">
+            <span class="manual-kicker">01 / INSTALL</span>
+            <h2>One command.<br />No sudo.</h2>
+            <p>The prebuilt release supports GNU/Linux x86_64 with glibc 2.35 or newer. The installer verifies SHA-256, installs below <code>~/.local</code>, includes the private YANC 5.2 bundle and does not modify shell startup files.</p>
+            <pre><code>curl -fsSL https://github.com/ART3121/solar/releases/latest/download/install.sh | sh
+
+export PATH="$HOME/.local/bin:$PATH"
+solar --version
+solar doctor --all</code></pre>
+            <h3>External tools</h3>
+            <p>Icarus Verilog and Yosys power the default Verilog flow and remain system packages. Verilator, cocotb, GTKWave and Surfer are optional. Solar never installs those tools automatically.</p>
+            <pre><code># Debian / Ubuntu
+sudo apt install iverilog yosys verilator gtkwave
+
+# Arch Linux
+sudo pacman -S iverilog yosys verilator gtkwave</code></pre>
+            <div class="callout"><p>cocotb 2.x requires Verilator 5.036 or newer. Older Verilator packages still work for native Verilator simulations.</p></div>
+          </section>
+
+          <section class="manual-section" id="quick-start">
+            <span class="manual-kicker">02 / QUICK START</span>
+            <h2>From empty folder<br />to verified RTL.</h2>
+            <pre><code>mkdir counter
+cd counter
+solar init --template verilog
+solar scan
+solar check
+solar build sim --list
+solar build full
+solar report</code></pre>
+            <p><code>solar scan</code> discovers conventional <code>.v</code> and <code>.sv</code> files below <code>rtl/</code> and <code>tb/</code>, infers unambiguous tops and updates only managed manifest fields. Project loading also discovers conventional sources, so scan is not a prerequisite for every build.</p>
+            <h3>Typical project tree</h3>
+            <pre><code>counter/
+├── solar.toml
+├── rtl/          authored RTL
+├── tb/           authored testbenches
+├── sim/          published VCD/FST
+├── synth/        netlist and synthesis report
+└── .solar/       private logs, state and workspaces</code></pre>
+          </section>
+
+          <section class="manual-section" id="project">
+            <span class="manual-kicker">03 / PROJECT CONTRACT</span>
+            <h2>The manifest says<br />what the flow means.</h2>
+            <p>Paths in <code>solar.toml</code> are relative to the manifest. Format 2 supports named tests and profiles. Solar implements its documented TOML subset, not every TOML feature.</p>
+            <pre><code>[solar]
+format = 2
+
+[project]
+name = "counter"
+language = "verilog"
+default_test = "basic"
+default_profile = "debug"
+
+[sources]
+rtl = ["rtl/counter.v"]
+
+[simulation]
+backend = "iverilog"
+
+[synthesis]
+backend = "yosys"
+top = "counter"
+
+[[profile]]
+name = "debug"
+defines = ["DEBUG"]
+
+[[test]]
+name = "basic"
+top = "counter_tb"
+sources = ["tb/counter_tb.v"]
+waveform = "counter.vcd"</code></pre>
+            <p>Use <code>solar config set --name</code>, <code>--top</code> and <code>--test</code> for supported transactional edits. Other values remain explicit manifest edits.</p>
+          </section>
+
+          <section class="manual-section" id="commands">
+            <span class="manual-kicker">04 / COMMAND REFERENCE</span>
+            <h2>A small public<br />command surface.</h2>
+            <table class="command-table">
+              <thead><tr><th>COMMAND</th><th>PURPOSE</th></tr></thead>
+              <tbody>
+                <tr><td><code>solar init</code></td><td>Create a project without overwriting existing files.</td></tr>
+                <tr><td><code>solar scan</code></td><td>Synchronize conventional source/test fields and inferred tops.</td></tr>
+                <tr><td><code>solar config set</code></td><td>Update name, synthesis top or default test transactionally.</td></tr>
+                <tr><td><code>solar check</code></td><td>Validate the manifest, sources, tests, profiles and known backends.</td></tr>
+                <tr><td><code>solar doctor --all</code></td><td>Inspect required tools, optional viewers and discovered versions.</td></tr>
+                <tr><td><code>solar build rtl</code></td><td>Validate and elaborate RTL, or run the configured compiler service.</td></tr>
+                <tr><td><code>solar build sim [name]</code></td><td>Run one selected named simulation.</td></tr>
+                <tr><td><code>solar build sim --list</code></td><td>List simulations without executing a backend.</td></tr>
+                <tr><td><code>solar build sim --all</code></td><td>Run every declared simulation sequentially.</td></tr>
+                <tr><td><code>solar build synth</code></td><td>Synthesize authored/generated hardware without testbench leakage.</td></tr>
+                <tr><td><code>solar build full</code></td><td>Check, elaborate, simulate and synthesize in one ordered flow.</td></tr>
+                <tr><td><code>solar view [test]</code></td><td>Open an existing waveform; never starts a build.</td></tr>
+                <tr><td><code>solar report</code></td><td>Read the persisted last-build report without rebuilding.</td></tr>
+                <tr><td><code>solar clean</code></td><td>Remove only registered Solar-owned artifacts and safe local state.</td></tr>
+              </tbody>
+            </table>
+            <p>Every executable build target accepts <code>--profile</code> and <code>--dry-run</code>. Simulation also supports <code>--no-progress</code> and <code>--verbose</code>.</p>
+          </section>
+
+          <section class="manual-section" id="waveforms">
+            <span class="manual-kicker">05 / SIMULATION AND WAVEFORMS</span>
+            <h2>The testbench writes it.<br />Solar publishes it.</h2>
+            <p>The waveform configured for a named test must agree with the literal path used by the testbench. Include the extension in both places:</p>
+            <pre><code>// tb/counter_tb.v
+initial begin
+  $dumpfile("counter.vcd");
+  $dumpvars(0, counter_tb);
+end
+
+# solar.toml
+waveform = "counter.vcd"</code></pre>
+            <div class="callout"><p>If you change the literal <code>$dumpfile</code> path after a previous scan, run <code>solar scan</code> again so the managed test configuration is synchronized. Then rerun <code>solar build sim basic</code>.</p></div>
+            <p>A passing simulation may intentionally produce no waveform. Solar reports that clearly and does not invent a VCD. Use <code>solar view basic</code> only after a waveform has been registered.</p>
+          </section>
+
+          <section class="manual-section" id="artifacts">
+            <span class="manual-kicker">06 / ARTIFACTS</span>
+            <h2>Useful output visible.<br />Disposable state private.</h2>
+            <ul>
+              <li><code>sim/</code>: validated Verilog VCD/FST waveforms.</li>
+              <li><code>synth/</code>: Verilog netlist and synthesis report.</li>
+              <li><code>software/</code>: generated CMM/C++ Assembly output.</li>
+              <li><code>hardware/</code>: published SAPHO hardware.</li>
+              <li><code>simulation/</code>: published SAPHO simulation output.</li>
+              <li><code>.solar/</code>: private executables, logs, temporary files and state.</li>
+            </ul>
+            <p><code>solar clean</code> removes registered generated files only. It preserves source files, the manifest, unregistered files and legacy layouts.</p>
+          </section>
+
+          <section class="manual-section" id="troubleshooting">
+            <span class="manual-kicker">07 / TROUBLESHOOTING</span>
+            <h2>Start with the<br />first useful diagnostic.</h2>
+            <h3>Tool not found</h3>
+            <p>Run <code>solar doctor --all</code>, install the missing external package through your distribution and retry. Solar does not download tools.</p>
+            <h3>Wrong or missing waveform</h3>
+            <p>Compare the test's <code>waveform</code> value with <code>$dumpfile</code>, including <code>.vcd</code> or <code>.fst</code>. Run <code>solar scan</code> after changing the literal testbench path.</p>
+            <h3>Wrong simulation selected</h3>
+            <p>Use <code>solar build sim --list</code>. Select a name explicitly or set a valid default with <code>solar config set --test NAME</code>.</p>
+            <h3>Synthesis includes a testbench</h3>
+            <p>Keep authored design files in <code>rtl/</code> and testbenches in <code>tb/</code>. Solar synthesis uses RTL and the selected profile, never test-specific sources.</p>
+            <h3>Need the last failure</h3>
+            <p>Run <code>solar report</code>. It can display a persisted failed build and does not execute another build.</p>
+          </section>
+
+          <section class="manual-section" id="reference">
+            <span class="manual-kicker">08 / COMPLETE REFERENCE</span>
+            <h2>Deeper contracts,<br />kept close to source.</h2>
+            <div class="manual-grid">
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/project-format.md"><b>Project format</b><span>Supported TOML subset, tests, profiles and validation.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/command-reference.md"><b>Command reference</b><span>Complete options, selection rules and command semantics.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/yanc.md"><b>YANC / SAPHO</b><span>Compiler stages, generated artifacts and verified constraints.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/architecture.md"><b>Architecture</b><span>Core, CLI, services, backends and artifact data flow.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/testing.md"><b>Testing evidence</b><span>Unit, integration, real-tool and skip-policy evidence.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/troubleshooting.md"><b>Extended troubleshooting</b><span>Detailed failure modes and recovery procedures.</span></a>
+            </div>
+          </section>
+        </div>
+
+        <div data-manual-lang="pt">
+          <section class="manual-section" id="overview-pt">
+            <span class="manual-kicker">00 / O QUE É O SOLAR</span>
+            <h2>Um modelo de projeto.<br />Ferramentas EDA conhecidas.</h2>
+            <p>Solar é uma plataforma leve de hardware aberto e um orquestrador de fluxos EDA para Linux. Ele valida um modelo explícito de projeto, executa ferramentas conhecidas com segurança e organiza artefatos úteis sem tentar substituir simuladores ou sintetizadores.</p>
+            <div class="manual-grid">
+              <a class="manual-card" href="#quick-start"><b>Começar um projeto</b><span>Crie um projeto Verilog convencional e execute seu primeiro fluxo completo.</span></a>
+              <a class="manual-card" href="#commands"><b>Usar a CLI</b><span>Consulte os comandos estáveis de projeto, build, artefatos e diagnóstico.</span></a>
+              <a class="manual-card" href="#waveforms"><b>Depurar uma simulação</b><span>Entenda testes nomeados, caminhos VCD e quando executar <code>solar scan</code>.</span></a>
+              <a class="manual-card" href="#reference"><b>Aprofundar</b><span>Abra as referências completas de manifesto, arquitetura, backends e testes.</span></a>
+            </div>
+          </section>
+
+          <section class="manual-section" id="install-pt">
+            <span class="manual-kicker">01 / INSTALAÇÃO</span>
+            <h2>Um comando.<br />Sem sudo.</h2>
+            <p>A versão pronta suporta GNU/Linux x86_64 com glibc 2.35 ou mais recente. O instalador verifica SHA-256, instala em <code>~/.local</code>, inclui a YANC 5.2 privada e não modifica arquivos de inicialização do shell.</p>
+            <pre><code>curl -fsSL https://github.com/ART3121/solar/releases/latest/download/install.sh | sh
+
+export PATH="$HOME/.local/bin:$PATH"
+solar --version
+solar doctor --all</code></pre>
+            <h3>Ferramentas externas</h3>
+            <p>Icarus Verilog e Yosys executam o fluxo Verilog padrão. Verilator, cocotb, GTKWave e Surfer são opcionais. O Solar nunca instala essas ferramentas automaticamente.</p>
+            <pre><code># Debian / Ubuntu
+sudo apt install iverilog yosys verilator gtkwave
+
+# Arch Linux
+sudo pacman -S iverilog yosys verilator gtkwave</code></pre>
+            <div class="callout"><p>cocotb 2.x exige Verilator 5.036 ou mais recente. Versões anteriores ainda podem executar simulações Verilator nativas.</p></div>
+          </section>
+
+          <section class="manual-section" id="quick-start-pt">
+            <span class="manual-kicker">02 / PRIMEIROS PASSOS</span>
+            <h2>Da pasta vazia<br />ao RTL validado.</h2>
+            <pre><code>mkdir counter
+cd counter
+solar init --template verilog
+solar scan
+solar check
+solar build sim --list
+solar build full
+solar report</code></pre>
+            <p><code>solar scan</code> encontra arquivos <code>.v</code> e <code>.sv</code> convencionais em <code>rtl/</code> e <code>tb/</code>, detecta tops sem ambiguidade e atualiza apenas os campos gerenciados. O carregamento normal também descobre fontes convencionais; scan não é pré-requisito para todo build.</p>
+          </section>
+
+          <section class="manual-section" id="project-pt">
+            <span class="manual-kicker">03 / CONTRATO DO PROJETO</span>
+            <h2>O manifesto define<br />o significado do fluxo.</h2>
+            <p>Os caminhos de <code>solar.toml</code> são relativos ao manifesto. O formato 2 possui testes e perfis nomeados. Solar implementa o subconjunto TOML documentado, não todos os recursos de TOML.</p>
+            <pre><code>[solar]
+format = 2
+
+[project]
+name = "counter"
+language = "verilog"
+default_test = "basic"
+
+[simulation]
+backend = "iverilog"
+
+[synthesis]
+backend = "yosys"
+top = "counter"
+
+[[test]]
+name = "basic"
+top = "counter_tb"
+sources = ["tb/counter_tb.v"]
+waveform = "counter.vcd"</code></pre>
+            <p>Use <code>solar config set --name</code>, <code>--top</code> e <code>--test</code> para as edições transacionais suportadas.</p>
+          </section>
+
+          <section class="manual-section" id="commands-pt">
+            <span class="manual-kicker">04 / COMANDOS</span>
+            <h2>Uma interface pública<br />pequena e direta.</h2>
+            <table class="command-table">
+              <thead><tr><th>COMANDO</th><th>FINALIDADE</th></tr></thead>
+              <tbody>
+                <tr><td><code>solar init</code></td><td>Cria um projeto sem sobrescrever arquivos existentes.</td></tr>
+                <tr><td><code>solar scan</code></td><td>Sincroniza fontes, testes convencionais e tops detectados.</td></tr>
+                <tr><td><code>solar config set</code></td><td>Atualiza nome, top de síntese ou teste padrão.</td></tr>
+                <tr><td><code>solar check</code></td><td>Valida manifesto, fontes, testes, perfis e backends.</td></tr>
+                <tr><td><code>solar doctor --all</code></td><td>Inspeciona ferramentas, visualizadores e versões.</td></tr>
+                <tr><td><code>solar build rtl</code></td><td>Valida e elabora RTL ou executa o serviço de compilador.</td></tr>
+                <tr><td><code>solar build sim [nome]</code></td><td>Executa uma simulação nomeada.</td></tr>
+                <tr><td><code>solar build sim --list</code></td><td>Lista simulações sem executar backend.</td></tr>
+                <tr><td><code>solar build sim --all</code></td><td>Executa todas as simulações em sequência.</td></tr>
+                <tr><td><code>solar build synth</code></td><td>Sintetiza hardware sem incluir testbenches.</td></tr>
+                <tr><td><code>solar build full</code></td><td>Valida, elabora, simula e sintetiza em ordem.</td></tr>
+                <tr><td><code>solar view [teste]</code></td><td>Abre uma forma de onda existente; nunca inicia build.</td></tr>
+                <tr><td><code>solar report</code></td><td>Lê o último relatório persistido sem refazer o build.</td></tr>
+                <tr><td><code>solar clean</code></td><td>Remove apenas artefatos registrados e estado seguro.</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="manual-section" id="waveforms-pt">
+            <span class="manual-kicker">05 / SIMULAÇÃO E FORMAS DE ONDA</span>
+            <h2>O testbench grava.<br />O Solar publica.</h2>
+            <p>A forma de onda configurada no teste deve coincidir com o caminho literal usado pelo testbench. Inclua a extensão nos dois lugares:</p>
+            <pre><code>// tb/counter_tb.v
+initial begin
+  $dumpfile("counter.vcd");
+  $dumpvars(0, counter_tb);
+end
+
+# solar.toml
+waveform = "counter.vcd"</code></pre>
+            <div class="callout"><p>Se você alterar o caminho literal de <code>$dumpfile</code> depois de um scan, execute <code>solar scan</code> novamente para sincronizar a configuração gerenciada. Depois rode <code>solar build sim basic</code>.</p></div>
+            <p>Uma simulação aprovada pode não produzir forma de onda intencionalmente. O Solar informa isso e não inventa um VCD. Use <code>solar view basic</code> somente quando houver uma onda registrada.</p>
+          </section>
+
+          <section class="manual-section" id="artifacts-pt">
+            <span class="manual-kicker">06 / ARTEFATOS</span>
+            <h2>Resultado útil visível.<br />Estado descartável privado.</h2>
+            <ul>
+              <li><code>sim/</code>: formas de onda VCD/FST Verilog validadas.</li>
+              <li><code>synth/</code>: netlist Verilog e relatório de síntese.</li>
+              <li><code>software/</code>: Assembly gerado por CMM/C++.</li>
+              <li><code>hardware/</code>: hardware SAPHO publicado.</li>
+              <li><code>simulation/</code>: resultados de simulação SAPHO.</li>
+              <li><code>.solar/</code>: executáveis, logs, temporários e estado privados.</li>
+            </ul>
+          </section>
+
+          <section class="manual-section" id="troubleshooting-pt">
+            <span class="manual-kicker">07 / SOLUÇÃO DE PROBLEMAS</span>
+            <h2>Comece pelo primeiro<br />diagnóstico útil.</h2>
+            <h3>Ferramenta não encontrada</h3>
+            <p>Execute <code>solar doctor --all</code>, instale o pacote externo pela distribuição e tente novamente. O Solar não baixa ferramentas.</p>
+            <h3>Forma de onda errada ou ausente</h3>
+            <p>Compare o valor <code>waveform</code> do teste com <code>$dumpfile</code>, incluindo <code>.vcd</code> ou <code>.fst</code>. Execute <code>solar scan</code> após alterar o caminho literal do testbench.</p>
+            <h3>Simulação errada selecionada</h3>
+            <p>Use <code>solar build sim --list</code>. Selecione um nome ou defina o padrão com <code>solar config set --test NOME</code>.</p>
+            <h3>Precisa ver a última falha</h3>
+            <p>Execute <code>solar report</code>. Ele exibe um build com falha já registrado sem executar outro build.</p>
+          </section>
+
+          <section class="manual-section" id="reference-pt">
+            <span class="manual-kicker">08 / REFERÊNCIA COMPLETA</span>
+            <h2>Contratos detalhados,<br />próximos do código.</h2>
+            <div class="manual-grid">
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/project-format.md"><b>Formato do projeto</b><span>Subconjunto TOML, testes, perfis e validação.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/command-reference.md"><b>Referência da CLI</b><span>Opções, regras de seleção e semântica dos comandos.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/yanc.md"><b>YANC / SAPHO</b><span>Etapas do compilador, artefatos e limitações verificadas.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/architecture.md"><b>Arquitetura</b><span>Core, CLI, serviços, backends e fluxo de artefatos.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/testing.md"><b>Evidências de teste</b><span>Testes unitários, integração, ferramentas reais e skips.</span></a>
+              <a class="manual-card" href="https://github.com/ART3121/solar/blob/main/docs/troubleshooting.md"><b>Solução de problemas detalhada</b><span>Modos de falha e procedimentos de recuperação.</span></a>
+            </div>
+          </section>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div><a class="brand" href="../"><span aria-hidden="true">✳</span> SOLAR</a><p>Solar 0.4.5 · MIT licensed · Linux</p></div>
+    <nav aria-label="Footer navigation">
+      <a href="../">Project site</a>
+      <a href="https://github.com/ART3121/solar">GitHub / source ↗</a>
+      <a href="https://github.com/ART3121/solar/releases/latest">Latest release ↗</a>
+      <a href="https://github.com/ART3121/solar/blob/main/LICENSE">MIT license ↗</a>
+    </nav>
+  </footer>
+  <script src="docs.js"></script>
+</body>
+</html>

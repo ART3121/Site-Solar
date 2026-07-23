@@ -1,7 +1,7 @@
 const LINKS = {
-  getStarted: '#quick-start',
-  docs: '#quick-start',
-  source: 'https://github.com/nipscernlab',
+  getStarted: './docs/#quick-start',
+  docs: './docs/',
+  source: 'https://github.com/ART3121/solar',
   sapho: 'https://www.nipscern.com/projects/sapho',
   nipscern: 'https://www.nipscern.com/',
   license: 'https://opensource.org/license/mit'
@@ -12,7 +12,7 @@ const FUTURE = {
     heading: 'Future direction,<br><em>kept explicit.</em>',
     introduction: 'Solar is being designed to grow beyond its current Linux command-line workflow without abandoning its native, explicit and Core-first architecture. The capabilities below are planned development directions, not part of the current release, and have no committed delivery dates.',
     closing: 'Every future interface and backend must preserve the same principle: tools, commands, artifacts and failures should remain visible to the developer.',
-    source: 'Explore NIPSCERN on GitHub ↗',
+    source: 'Explore Solar on GitHub ↗',
     groups: [
       {
         label: 'PLATFORM',
@@ -57,12 +57,6 @@ const FUTURE = {
           points: ['Project setup, navigation, profiles and named simulations', 'Build execution, diagnostics, structured logs and artifact browsing', 'Report, waveform and SAPHO workflow access', 'Optional editor integration', 'CLI remains independent and projects remain terminal-usable'],
           note: 'Solar Studio is planned as an interface to the Core, not as a replacement for it. It is not a committed graphical product or a browser-required IDE.'
         }, {
-          status: 'PLANNED',
-          title: 'Surfer Waveform Integration',
-          text: 'First-class integration with Surfer as another waveform visualization option. Validated simulation artifacts would be opened explicitly through Surfer while retaining the current separation between simulation and visualization.',
-          points: ['Discovery of an installed Surfer executable', 'Compatible waveform-format validation', 'Explicit CLI opening and viewer selection', 'Solar Studio integration direction', 'No implicit simulation rerun when opening an existing waveform'],
-          note: 'Surfer support would expand waveform visualization options without coupling simulation execution to a specific viewer.'
-        }, {
           status: 'UNDER EVALUATION',
           title: 'PRISM Integration',
           text: 'Evaluate a future integration path for PRISM that keeps the Solar Core small and the workflow explicit. Any connection would need a clear boundary so tool execution, generated results and failures remain observable from Solar.',
@@ -76,7 +70,7 @@ const FUTURE = {
     heading: 'Direção futura,<br><em>sem esconder o caminho.</em>',
     introduction: 'Solar foi pensado para ir além do fluxo atual de linha de comando em Linux, sem abrir mão do Core nativo, do comportamento explícito e de ferramentas visíveis. As capacidades abaixo são direções de desenvolvimento; não existem na versão atual e não têm data de entrega definida.',
     closing: 'Toda interface ou backend futuro deve manter o mesmo princípio: as ferramentas, os comandos, os artefatos e as falhas precisam continuar visíveis para quem desenvolve.',
-    source: 'Explorar a NIPSCERN no GitHub ↗',
+    source: 'Explorar o Solar no GitHub ↗',
     groups: [
       {
         label: 'PLATAFORMA',
@@ -121,12 +115,6 @@ const FUTURE = {
           points: ['Criação e navegação de projeto, perfis e simulações nomeadas', 'Execução de build, diagnósticos, logs estruturados e navegador de artefatos', 'Acesso a relatórios, formas de onda e fluxos SAPHO', 'Integração opcional com editor', 'CLI independente e projetos sempre utilizáveis pelo terminal'],
           note: 'Solar Studio é uma direção de interface para o Core, não um substituto para ele. Não é um produto gráfico confirmado nem uma IDE que exija navegador.'
         }, {
-          status: 'PLANEJADO',
-          title: 'Integração de ondas com Surfer',
-          text: 'Uma integração de primeira classe com Surfer como mais uma opção para visualizar formas de onda. Artefatos de simulação validados seriam abertos explicitamente pelo Surfer, preservando a separação atual entre simular e visualizar.',
-          points: ['Descoberta de um executável Surfer instalado', 'Validação de formatos de onda compatíveis', 'Abertura explícita pela CLI e escolha de visualizador', 'Direção de integração com Solar Studio', 'Sem rodar novamente uma simulação ao abrir uma onda existente'],
-          note: 'O suporte ao Surfer ampliaria as opções de visualização sem acoplar a execução da simulação a um visualizador específico.'
-        }, {
           status: 'EM AVALIAÇÃO',
           title: 'Integração com PRISM',
           text: 'Avaliar um caminho futuro de integração com PRISM, mantendo o Core do Solar pequeno e o fluxo explícito. Qualquer conexão precisará de um limite claro para que execução, resultados gerados e falhas continuem observáveis pelo Solar.',
@@ -144,10 +132,10 @@ const COPY = {
     description: 'Solar is a native workflow orchestration layer for open hardware projects.',
     skip: 'Skip to content',
     scrollCue: 'SCROLL TO EXPLORE',
-    nav: ['Workflow', 'SAPHO', 'Status', 'Future', 'Quick start'],
+    nav: ['Workflow', 'SAPHO', 'Status', 'Future', 'Manual', 'Quick start'],
     sectionLabels: ['01 / START WITH THE WORKFLOW', '02 / THE WORKFLOW', '03 / OBSERVED CLI OUTPUT', '04 / INTEGRATED TOOLS', '05 / SAPHO INTEGRATION', '06 / REPORTS AND EVIDENCE', '07 / CORE-FIRST ARCHITECTURE', '08 / WHERE IT FITS', '09 / CURRENT STATUS', '10 / FUTURE IMPLEMENTATIONS', '11 / QUICK START'],
     intro: {
-      eyebrow: 'SOLAR 0.3 DEVELOPMENT PREVIEW / LINUX / MIT',
+      eyebrow: 'SOLAR 0.4.5 STABLE RELEASE / LINUX / MIT',
       heading: 'Native workflow<br><em>orchestration for open hardware.</em>',
       paragraphs: [
         'Solar brings project configuration, RTL validation, simulation, synthesis and generated artifacts into one explicit workflow. It coordinates established tools through a small native Core, a predictable project model and traceable build results.',
@@ -169,7 +157,7 @@ const COPY = {
     terminal: {
       heading: 'Build results,<br><em>not guesswork.</em>',
       paragraphs: [
-        'This is an excerpt captured from Solar 0.3.0 built in Debug and run against the repository\'s <code>examples/counter</code> project. It shows actual CLI grammar and output; external-tool versions, paths and timings are intentionally not presented as universal performance claims.',
+        'This is an excerpt captured from Solar 0.4.5 built in Debug and run against the repository\'s <code>examples/counter</code> project. It shows actual CLI grammar and output; external-tool versions, paths and timings are intentionally not presented as universal performance claims.',
         '<code>solar check</code> validates without executing a build. <code>solar build sim --list</code> lists configured simulations without executing a backend. <code>solar build full --dry-run</code> validates and plans the complete pipeline without executing external tools.'
       ]
     },
@@ -218,7 +206,7 @@ const COPY = {
     status: {
       headings: ['Available today', 'Current limitations'],
       lists: [
-        ['Format-2 Verilog/SystemVerilog projects with deterministic discovery', 'Profiles, defines, include directories and named simulations', '<code>init</code>, <code>scan</code>, <code>check</code>, <code>doctor</code> and safe <code>clean</code>', 'RTL, simulation, synthesis and complete builds', 'Icarus/VVP, Verilator, cocotb 2.x, Yosys and GTKWave integration', 'Bundled YANC CMM, C++ and Assembly flows for SAPHO artifacts', 'Registered artifacts, project-local logs and persistent reports'],
+        ['Format-2 Verilog/SystemVerilog projects with deterministic discovery', 'Profiles, defines, include directories and named simulations', '<code>init</code>, <code>scan</code>, <code>check</code>, <code>doctor</code> and safe <code>clean</code>', 'RTL, simulation, synthesis and complete builds', 'Icarus/VVP, Verilator, cocotb 2.x, Yosys, GTKWave and Surfer integration', 'Bundled YANC CMM, C++ and Assembly flows for SAPHO artifacts', 'Registered artifacts, project-local logs and persistent reports'],
         ['Linux/POSIX only', 'No FPGA place-and-route, board programming or ASIC implementation', 'No VHDL support, HDL editor, language server or graphical Solar frontend', 'Sequential simulations; no timeout, parallel build or incremental cache', 'Static backend registries; no dynamic plugins or arbitrary backend flags', 'One YANC source and processor per project in the current flow']
       ]
     },
@@ -232,7 +220,7 @@ const COPY = {
       paragraph: 'Build Solar with CMake, then create and validate a conventional Verilog project. The commands below are present in the current CLI and templates. Choose a YANC template only when working on a SAPHO project.',
       ctas: ['Read project documentation <span>↗</span>', 'Browse source <span>↗</span>']
     },
-    footer: ['Solar 0.3 development preview · MIT licensed · Linux', 'GitHub / source ↗', 'Documentation ↗', 'SAPHO ↗', 'NIPSCERN ↗', 'MIT license ↗'],
+    footer: ['Solar 0.4.5 stable release · MIT licensed · Linux', 'GitHub / source ↗', 'Documentation ↗', 'SAPHO ↗', 'NIPSCERN ↗', 'MIT license ↗'],
     theme: { light: 'LIGHT', dark: 'DARK', toLight: 'Switch to light mode', toDark: 'Switch to dark mode' },
     language: { label: 'PT', aria: 'Switch site language to Portuguese' }
   },
@@ -241,10 +229,10 @@ const COPY = {
     description: 'Solar organiza validação, simulação, síntese e artefatos de projetos de hardware aberto em um fluxo nativo e rastreável.',
     skip: 'Ir para o conteúdo',
     scrollCue: 'ROLE PARA EXPLORAR',
-    nav: ['Fluxo', 'SAPHO', 'Status', 'Futuro', 'Início rápido'],
+    nav: ['Fluxo', 'SAPHO', 'Status', 'Futuro', 'Manual', 'Início rápido'],
     sectionLabels: ['01 / COMECE PELO FLUXO', '02 / COMO O FLUXO ACONTECE', '03 / CLI EM USO', '04 / FERRAMENTAS QUE SE CONECTAM', '05 / SAPHO NO MESMO FLUXO', '06 / O QUE FICA REGISTRADO', '07 / CORE ANTES DA INTERFACE', '08 / ONDE O SOLAR AJUDA', '09 / O QUE JÁ EXISTE', '10 / IMPLEMENTAÇÕES FUTURAS', '11 / PRIMEIROS PASSOS'],
     intro: {
-      eyebrow: 'SOLAR 0.3 / EM DESENVOLVIMENTO / LINUX / MIT',
+      eyebrow: 'SOLAR 0.4.5 / VERSÃO ESTÁVEL / LINUX / MIT',
       heading: 'Um fluxo nativo<br><em>para hardware aberto.</em>',
       paragraphs: [
         'Solar põe configuração, verificação de RTL, simulação, síntese e arquivos gerados no mesmo caminho de trabalho. Por baixo, um Core nativo pequeno coordena ferramentas que você já conhece e deixa cada resultado rastreável.',
@@ -266,7 +254,7 @@ const COPY = {
     terminal: {
       heading: 'O que aconteceu,<br><em>sem maquiagem.</em>',
       paragraphs: [
-        'Este trecho veio de uma execução do Solar 0.3.0 em Debug no projeto <code>examples/counter</code> do repositório. A sintaxe e as mensagens são reais. Caminhos, versões e tempos de ferramentas externas ficaram de fora porque não são uma métrica universal de desempenho.',
+        'Este trecho veio de uma execução do Solar 0.4.5 em Debug no projeto <code>examples/counter</code> do repositório. A sintaxe e as mensagens são reais. Caminhos, versões e tempos de ferramentas externas ficaram de fora porque não são uma métrica universal de desempenho.',
         '<code>solar check</code> confere o projeto sem rodar build. <code>solar build sim --list</code> mostra as simulações declaradas sem chamar backend. <code>solar build full --dry-run</code> valida e descreve o pipeline inteiro sem invocar ferramentas externas.'
       ]
     },
@@ -315,7 +303,7 @@ const COPY = {
     status: {
       headings: ['Já disponível', 'Limites atuais'],
       lists: [
-        ['Projetos Verilog/SystemVerilog no formato 2, com descoberta de fontes previsível', 'Perfis, defines, diretórios de include e simulações nomeadas', '<code>init</code>, <code>scan</code>, <code>check</code>, <code>doctor</code> e <code>clean</code> com proteção de arquivos', 'RTL, simulação, síntese e o fluxo completo de build', 'Integração com Icarus/VVP, Verilator, cocotb 2.x, Yosys e GTKWave', 'Fluxos YANC incluídos para CMM, C++ e Assembly, voltados aos artefatos SAPHO', 'Artefatos registrados, logs dentro do projeto e relatórios persistentes'],
+        ['Projetos Verilog/SystemVerilog no formato 2, com descoberta de fontes previsível', 'Perfis, defines, diretórios de include e simulações nomeadas', '<code>init</code>, <code>scan</code>, <code>check</code>, <code>doctor</code> e <code>clean</code> com proteção de arquivos', 'RTL, simulação, síntese e o fluxo completo de build', 'Integração com Icarus/VVP, Verilator, cocotb 2.x, Yosys, GTKWave e Surfer', 'Fluxos YANC incluídos para CMM, C++ e Assembly, voltados aos artefatos SAPHO', 'Artefatos registrados, logs dentro do projeto e relatórios persistentes'],
         ['Funciona apenas em Linux/POSIX', 'Ainda não faz place-and-route FPGA, programação de placa ou implementação ASIC', 'Ainda não há VHDL, editor HDL, servidor de linguagem ou interface gráfica do Solar', 'As simulações são sequenciais; não há timeout, build paralelo nem cache incremental', 'Os backends são registrados estaticamente; não há plugins dinâmicos nem flags livres de backend', 'O fluxo atual aceita uma fonte YANC e um processador por projeto']
       ]
     },
@@ -329,7 +317,7 @@ const COPY = {
       paragraph: 'Compile o Solar com CMake e crie um projeto Verilog convencional. Os comandos abaixo existem na CLI e nos templates atuais. Use um template YANC somente quando o projeto for SAPHO.',
       ctas: ['Ler a documentação <span>↗</span>', 'Explorar o código <span>↗</span>']
     },
-    footer: ['Solar 0.3 / em desenvolvimento · MIT · Linux', 'GitHub / código ↗', 'Documentação ↗', 'SAPHO ↗', 'NIPSCERN ↗', 'Licença MIT ↗'],
+    footer: ['Solar 0.4.5 / versão estável · MIT · Linux', 'GitHub / código ↗', 'Documentação ↗', 'SAPHO ↗', 'NIPSCERN ↗', 'Licença MIT ↗'],
     theme: { light: 'CLARO', dark: 'ESCURO', toLight: 'Mudar para modo claro', toDark: 'Mudar para modo escuro' },
     language: { label: 'EN', aria: 'Mudar idioma do site para inglês' }
   }
