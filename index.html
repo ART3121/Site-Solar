@@ -27,11 +27,11 @@
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="Solar home"><span aria-hidden="true">✳</span> SOLAR</a>
     <nav class="site-nav" aria-label="Primary navigation">
-      <a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="#quick-start">Quick start</a>
+      <a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="./docs/">Manual</a><a href="#quick-start">Quick start</a>
     </nav>
     <div class="header-actions"><button class="language-toggle" type="button" aria-label="Mudar idioma para português">PT</button><button class="theme-toggle" type="button" aria-label="Switch to light mode">LIGHT</button><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">MENU</button></div>
   </header>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="#quick-start">Quick start</a></nav>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#workflow">Workflow</a><a href="#sapho">SAPHO</a><a href="#status">Status</a><a href="#future">Future</a><a href="./docs/">Manual</a><a href="#quick-start">Quick start</a></nav>
 
   <main id="main">
     <section class="hero section">
@@ -40,7 +40,7 @@
       <a class="scroll-cue" href="#contract" aria-label="Scroll to the project introduction"><span class="scroll-cue-label">SCROLL TO EXPLORE</span><i aria-hidden="true">↓</i></a>
     </section>
 
-    <section class="section intro" id="contract"><div class="section-label">01 / START WITH THE WORKFLOW</div><div class="split"><div class="copy reveal"><p class="eyebrow">SOLAR 0.3 DEVELOPMENT PREVIEW / LINUX / MIT</p><h2>Native workflow<br /><em>orchestration for open hardware.</em></h2><p>Solar brings project configuration, RTL validation, simulation, synthesis and generated artifacts into one explicit workflow. It coordinates established tools through a small native Core, a predictable project model and traceable build results.</p><p>It is not a simulator, synthesizer, IDE or waveform viewer. It makes established tools work together while keeping project behavior inspectable.</p><div class="cta-row"><a class="button button-primary" data-link="get-started">Get started <span>↓</span></a><a class="button" data-link="source">View source <span>↗</span></a><a class="button" data-link="docs">Documentation <span>↗</span></a></div><p>HDL projects often distribute their intent across local commands, tool arguments, scripts, folders and conventions. Solar treats <code>solar.toml</code> as a project contract: the place to declare the language, backends, profiles, tests and explicit source overrides that Solar needs to run the workflow.</p><p>It also discovers conventional Verilog and SystemVerilog sources below <code>rtl/</code> and <code>tb/</code> deterministically. That keeps the authored tree readable without forcing every source file into a hand-maintained list.</p></div><pre class="code-panel reveal" aria-label="Format 2 Solar project manifest"><code>[solar]
+    <section class="section intro" id="contract"><div class="section-label">01 / START WITH THE WORKFLOW</div><div class="split"><div class="copy reveal"><p class="eyebrow">SOLAR 0.4.5 STABLE RELEASE / LINUX / MIT</p><h2>Native workflow<br /><em>orchestration for open hardware.</em></h2><p>Solar brings project configuration, RTL validation, simulation, synthesis and generated artifacts into one explicit workflow. It coordinates established tools through a small native Core, a predictable project model and traceable build results.</p><p>It is not a simulator, synthesizer, IDE or waveform viewer. It makes established tools work together while keeping project behavior inspectable.</p><div class="cta-row"><a class="button button-primary" data-link="get-started">Get started <span>↓</span></a><a class="button" data-link="source">View source <span>↗</span></a><a class="button" data-link="docs">Documentation <span>↗</span></a></div><p>HDL projects often distribute their intent across local commands, tool arguments, scripts, folders and conventions. Solar treats <code>solar.toml</code> as a project contract: the place to declare the language, backends, profiles, tests and explicit source overrides that Solar needs to run the workflow.</p><p>It also discovers conventional Verilog and SystemVerilog sources below <code>rtl/</code> and <code>tb/</code> deterministically. That keeps the authored tree readable without forcing every source file into a hand-maintained list.</p></div><pre class="code-panel reveal" aria-label="Format 2 Solar project manifest"><code>[solar]
 format = 2
 
 [project]
@@ -63,7 +63,7 @@ top = "counter"</code></pre></div></section>
 ├── synth/          published netlist and report
 └── .solar/         private workspace, logs and state</code></div></section>
 
-    <section class="section terminal-section"><div class="section-label">03 / OBSERVED CLI OUTPUT</div><div class="split"><div class="copy reveal"><h2>Build results,<br /><em>not guesswork.</em></h2><p>This is an excerpt captured from Solar 0.3.0 built in Debug and run against the repository's <code>examples/counter</code> project. It shows actual CLI grammar and output; external-tool versions, paths and timings are intentionally not presented as universal performance claims.</p><p><code>solar check</code> validates without executing a build. <code>solar build sim --list</code> lists configured simulations without executing a backend. <code>solar build full --dry-run</code> validates and plans the complete pipeline without executing external tools.</p></div><pre class="terminal reveal"><code>$ solar check
+    <section class="section terminal-section"><div class="section-label">03 / OBSERVED CLI OUTPUT</div><div class="split"><div class="copy reveal"><h2>Build results,<br /><em>not guesswork.</em></h2><p>This is an excerpt captured from Solar 0.4.5 built in Debug and run against the repository's <code>examples/counter</code> project. It shows actual CLI grammar and output; external-tool versions, paths and timings are intentionally not presented as universal performance claims.</p><p><code>solar check</code> validates without executing a build. <code>solar build sim --list</code> lists configured simulations without executing a backend. <code>solar build full --dry-run</code> validates and plans the complete pipeline without executing external tools.</p></div><pre class="terminal reveal"><code>$ solar check
 Project counter is valid (1 RTL source, 2 tests).
 
 $ solar build sim --list
@@ -87,7 +87,7 @@ PASS  synth</code></pre></div></section>
 
 Status               PASS
 Command              solar build full
-Solar version        0.3.0
+Solar version        0.4.5
 Profile              debug
 
 Pipeline stages
@@ -118,7 +118,7 @@ solar init --template yanc-cmm
 solar init --template yanc-cpp
 solar init --template yanc-asm</code></pre></div></section>
   </main>
-  <footer class="site-footer"><div><span class="brand"><span aria-hidden="true">✳</span> SOLAR</span><p>Solar 0.3 development preview · MIT licensed · Linux</p></div><nav aria-label="Footer navigation"><a data-link="source">GitHub / source ↗</a><a data-link="docs">Documentation ↗</a><a data-link="sapho">SAPHO ↗</a><a data-link="nipscern">NIPSCERN ↗</a><a data-link="license">MIT license ↗</a></nav></footer>
+  <footer class="site-footer"><div><span class="brand"><span aria-hidden="true">✳</span> SOLAR</span><p>Solar 0.4.5 stable release · MIT licensed · Linux</p></div><nav aria-label="Footer navigation"><a data-link="source">GitHub / source ↗</a><a data-link="docs">Documentation ↗</a><a data-link="sapho">SAPHO ↗</a><a data-link="nipscern">NIPSCERN ↗</a><a data-link="license">MIT license ↗</a></nav></footer>
   <script src="app.js"></script>
 </body>
 </html>
